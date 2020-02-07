@@ -53,14 +53,8 @@ function ex3() {
 }
 
 function getSumArray(arr) {
-//    let sum = 0;
-//    for (let i = 0; i < arr.length; i++) {
-//        sum += arr[i];
-//    }
-//    return sum;
-    arr.forEach(function(element) {
-        sum+=element;
-    })
+    let summa = arr.reduce((sum, element) => sum + element);
+    return summa;
 }
 
 /*4. Написать функцию, которая принимает в качестве параметра массив чисел. Найти максимальное и минимальное значение и поменять их местами. Вывести на экран.*/
@@ -88,20 +82,13 @@ function swapElements(arr) {
 
 function ex5() {
     let email = prompt('Введите адрес электронной почты:','');
-    if (checkEmail(email)) {
-        alert('Вы ввели корректный адрес');
-    }
-    else {
-        alert('В адресе электронной почты должен содержаться символ @');
-    }
+    checkEmail(email);
 }
 
 function checkEmail(email) {
-    for (let i = 0; i < email.length; i++) {
-        if (email[i] == '@') {
-            return true;
-        }
-    }
+    let rex = /[@]+/g;
+    (rex.test(email)) ? alert('Вы ввели корректный адрес') :
+    alert('В адресе электронной почты должен содержаться символ @');
 }
 
 /*6. Написать функцию, которая будет проверять, является ли принимаемый параметр строкой или нет. Функция возвращает true, если да, false, если нет.*/
@@ -117,7 +104,7 @@ function checkString(str) {
     
 }
 
-/*7. Написать функцию которая принимает на вход два числа "a" и "b". Функция должна возвращать "a" в степени "b";*/
+/*7. Написать функцию которая принимает на вход два числа "a" и "b". Функция должна возвращать "a" в степени "b".*/
 
 function ex7() {
     let a = prompt('Введите 1 число');
@@ -134,7 +121,7 @@ function getStep(a,b) {
     return Math.pow(a,b);
 }
 
-/*8. Написать функцию которая принимает на вход два параметра, number и commandCode. Если код равен 1 - вернуть корень из number. Если код равен 2 - вернуть number в квадрате. Если код равен 3 - вернуть number в степени number. Если указан неверный код вернуть null;*/
+/*8. Написать функцию которая принимает на вход два параметра, number и commandCode. Если код равен 1 - вернуть корень из number. Если код равен 2 - вернуть number в квадрате. Если код равен 3 - вернуть number в степени number. Если указан неверный код вернуть null.*/
 
 function ex8(){
     let number = prompt('Введите число: ');
@@ -162,4 +149,52 @@ function getCalculations(number, commandCode) {
         default:
             return null;
     }
+}
+
+/*9. Функция принимает на вход массив чисел, вернуть массив из которого убраны все отрицательные элементы, использовать filter и стрелочную функцию.*/
+
+function ex9() {
+    let arr = [1, 0, 2, -10, 3, -21, 4, 5, 7, 2, 3, -5];
+    alert(`Старый массив: [${arr}].\nНовый массив без отрицательных значений: [${sortArray(arr)}]`);
+}
+
+function sortArray(arr) {
+    let sortedArr = arr.filter(item => item >= 0);  
+    return sortedArr;
+}
+
+/*10. Функция принимает на вход массив чисел и число, к каждому элементу массива нужно прибавить это число и вернуть массив. Делать через map, так же через стрелочную функцию.*/
+
+function ex10() {
+    let arr = [1, 2, 3, 4, 5, 7, 2, 3, -5];
+    let n = prompt('Введите число: ');
+    if (+n) {        
+        alert(`Старый массив: [${arr}].\nНовый массив: [${increaseArr(arr, n)}]`);
+    }
+    else {
+        alert('Вы ввели не число');
+    }
+}
+
+function increaseArr(arr, n) {
+    let newArray = arr.map(item => item * n);
+    return newArray;
+}
+
+/*11. Написать функцию которая принимает на вход массив и число, проверить есть ли в массиве это число. Не использовать циклы.*/
+
+function ex11() {
+    let arr = [1, 0, 2, -10, 3, -21, 4, 5, 43, 7, 2, 3, -5];
+    let n = +prompt('Введите число: ');
+    if (n) {   
+        (checkForNumber(arr, n)) ? alert(`Число ${n} присутствует в массиве [${arr}]`) : alert(`В массиве [${arr}] нет числа ${n}`);
+    }
+    else {
+        alert('Вы ввели не число');
+    }
+}
+
+function checkForNumber(arr, n) {
+    let existNum = arr.includes(n);
+    return existNum;
 }
